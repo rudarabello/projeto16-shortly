@@ -7,9 +7,9 @@ export async function urlShortenControll(req, res) {
     const { url } = req.body;
     try {
         await clientPg.query(`
-        INSERT INTO "shortenUrls" ("idUser", url, "shortUrl")
-        VALUES ($1, $2, $3)
-        `, [idUser, url, shortUrl]);
+        INSERT INTO "shortenUrls" ("idUser", url, "shortUrl", views)
+        VALUES ($1, $2, $3, $4)
+        `, [idUser, url, shortUrl, 0]);
         res.status(201).send({ shortUrl: shortUrl });
     } catch (error) {
         console.log(error);
