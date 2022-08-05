@@ -8,5 +8,4 @@ route.post('/signup', signUpMiddle, signUpController);
 route.post('/signin', signInMiddle, signInController);
 
 
-
-
+export default route;

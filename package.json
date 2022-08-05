@@ -6,6 +6,28 @@
     "express": "^4.18.1",
     "joi": "^17.6.0",
     "jsonwebtoken": "^8.5.1",
-    "nodemon": "^2.0.19"
-  }
+    "nodemon": "^2.0.19",
+    "pg": "^8.7.3"
+  },
+  "name": "projeto16-shortly",
+  "description": "**This is the API for project develop as 16º project on Driven bootcamp** **Uses Nodejs, Express and PostGres**",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./src/app.js",
+    "dev": "nodemon ./src/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rudarabello/projeto16-shortly.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rudarabello/projeto16-shortly/issues"
+  },
+  "homepage": "https://github.com/rudarabello/projeto16-shortly#readme"
 }
