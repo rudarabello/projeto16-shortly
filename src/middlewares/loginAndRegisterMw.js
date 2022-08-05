@@ -1,5 +1,5 @@
 import { clientPg } from "../db/postgres.js";
-import { registerSchema, loginSchema } from "../schemas/loginAndRegisterSchemas.js";
+import { registerSchema, loginSchema } from "../schemas/loginSignSchemas.js";
 import bcrypt from 'bcrypt';
 
 export async function signUpMiddle(req, res, next) {

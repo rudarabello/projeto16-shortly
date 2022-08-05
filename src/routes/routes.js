@@ -1,9 +1,9 @@
 import { Router } from 'express';
-import { signUpController, signInController } from '../controllers/loginSignCTRL.js';
-import { signUpMiddle, signInMiddle } from '../middlewares/loginAndRegisterMW.js';
-import { verifyTokenMW } from '../middlewares/verifyTokenMW.js';
-import { urlShortenMW } from '../middlewares/urlShortenMW.js';
-import { urlShortenControll, getUrlById } from '../controllers/urlCTRL.js';
+import { signUpController, signInController } from '../controllers/loginSignCtrl.js';
+import { signUpMiddle, signInMiddle } from '../middlewares/loginAndRegisterMw.js';
+import { verifyTokenMW } from '../middlewares/verifyTokenMw.js';
+import { urlShortenMW } from '../middlewares/urlShortenMw.js';
+import { urlShortenControll, getUrlById } from '../controllers/urlCtrl.js';
 
 
 const route = Router();
