@@ -59,3 +59,17 @@ export async function getShortUrlOpen(req, res) {
         return res.sendStatus(500);
     }
 }
+
+export async function deleteUrl(req, res) {
+    const id = parseInt(req.params.id);
+    try {
+        await clientPg.query(`
+        DELETE FROM "shortenUrls"
+        WHERE id = $1`,
+            [id]);
+        res.sendStatus(204);
+    } catch (error) {
+        console.log(error);
+        res.sendStatus(500);
+    }
+}
