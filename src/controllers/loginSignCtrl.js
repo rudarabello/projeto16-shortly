@@ -24,6 +24,6 @@ export async function signInController(req, res) {
         res.status(200).send(token);
     } catch (error) {
         console.log(error);
-        res.sendStatus(500);
+        res.sendStatus(501);
     }
 }
