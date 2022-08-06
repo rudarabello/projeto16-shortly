@@ -73,3 +73,21 @@ export async function deleteUrl(req, res) {
         res.sendStatus(500);
     }
 }
+
+export async function getRankingCtrl (req, res){
+    try {
+        const { rows: result } = await clientPg.query(`
+        SELECT users.id, name, COUNT("shortenUrls"."idUser") as "linksCount", SUM("shortenUrls".views) as "visitCount"
+        FROM users
+        JOIN "shortenUrls"
+        ON "shortenUrls"."idUser" = users.id
+        GROUP BY users.id
+        ORDER BY "visitCount" DESC
+        LIMIT 10`);
+        res.status(200).send(result);
+    } catch (error) {
+        
+        console.log(error);
+        res.sendStatus(500);
+    }
+}

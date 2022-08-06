@@ -3,7 +3,7 @@ import { signUpController, signInController } from '../controllers/loginSignCtrl
 import { signUpMiddle, signInMiddle } from '../middlewares/loginAndRegisterMw.js';
 import { verifyTokenMW } from '../middlewares/verifyTokenMw.js';
 import { urlShortenMW, deleteUrlMW } from '../middlewares/urlShortenMw.js';
-import { urlShortenControll, getUrlById, getShortUrlOpen, deleteUrl } from '../controllers/urlCtrl.js';
+import { urlShortenControll, getUrlById, getShortUrlOpen, deleteUrl, getRankingCtrl } from '../controllers/urlCtrl.js';
 import { getUserMe } from '../controllers/userCtrl.js';
 
 
@@ -21,5 +21,6 @@ route.delete('/urls/:id', verifyTokenMW, deleteUrlMW, deleteUrl);
 
 route.get('/users/me', verifyTokenMW, getUserMe);
 
+route.get('/ranking', getRankingCtrl);
 
 export default route;
