@@ -79,7 +79,7 @@ export async function getRankingCtrl (req, res){
         const { rows: result } = await clientPg.query(`
         SELECT users.id, name, COUNT("shortenUrls"."idUser") as "linksCount", SUM("shortenUrls".views) as "visitCount"
         FROM users
-        JOIN "shortenUrls"
+        LEFT JOIN "shortenUrls"
         ON "shortenUrls"."idUser" = users.id
         GROUP BY users.id
         ORDER BY "visitCount" DESC
