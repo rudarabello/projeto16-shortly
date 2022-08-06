@@ -3,4 +3,9 @@ import dotenv from 'dotenv'; dotenv.config();
 
 const { Pool } = pg;
 
-export const clientPg = new Pool({ connectionString: process.env.DATABASE_URL });
+export const clientPg = new Pool({
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+        rejectUnauthorized: false
+    }
+});
