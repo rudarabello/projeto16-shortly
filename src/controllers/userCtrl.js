@@ -2,7 +2,6 @@ import { getUserMeRP } from "../repositories/userRP.js";
 
 export async function getUserMe(req, res) {
     const { idUser } = res.locals.verifyTokenResult;
-    console.log(idUser)
     try {
         const { rows: response } = await getUserMeRP.getUserMe(idUser);
         if (response.length < 1) {
