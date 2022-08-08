@@ -1,5 +1,5 @@
 import { urlShortenSchema } from '../schemas/urlSchemas.js';
-import { clientPg } from "../db/postgres.js";
+import { middlewareRP } from '../repositories/middlewareRP.js';
 
 export async function urlShortenMW (req, res, next){
     const url = req.body;
@@ -11,17 +11,14 @@ export async function urlShortenMW (req, res, next){
 }
 
 export async function deleteUrlMW (req, res, next){
-    const id = parseInt(req.params.id);
-    if(isNaN(id)){
+    const idDelete = parseInt(req.params.id);
+    if(isNaN(idDelete)){
         return res.sendStatus(422);
     }
     const { idUser } = res.locals.verifyTokenResult;
     try {
         
-        const { rows: response } = await clientPg.query(`
-        SELECT * FROM "shortenUrls"
-        WHERE id = $1
-        `, [id]);
+        const { rows: response } = await middlewareRP.deleteUrlMW(idDelete);
         if(response.length < 1){
             return res.sendStatus(404);
         }

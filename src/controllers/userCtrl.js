@@ -1,25 +1,10 @@
-import { clientPg } from "../db/postgres.js";
+import { getUserMeRP } from "../repositories/userRP.js";
 
 export async function getUserMe(req, res) {
     const { idUser } = res.locals.verifyTokenResult;
+    console.log(idUser)
     try {
-        const { rows: response } = await clientPg.query(`
-        SELECT 
-        users.id, users.name, SUM("shortenUrls".views) as "visitCount",
-        json_build_object
-        (
-        'id', "shortenUrls".id,
-        'url', "shortenUrls".url,
-        'views', "shortenUrls".views
-        ) AS "shortenedUrls"
-        FROM users
-        JOIN "shortenUrls"
-        ON "shortenUrls"."idUser" = users.id
-        JOIN "shortenUrls" as "shortenUrls2"
-        ON "shortenUrls2"."idUser" = users.id
-        WHERE users.id = $1
-        GROUP BY users.id, "shortenUrls".id, "shortenUrls".views
-        `, [idUser]);
+        const { rows: response } = await getUserMeRP.getUserMe(idUser);
         if (response.length < 1) {
             return res.sendStatus(404);
         }

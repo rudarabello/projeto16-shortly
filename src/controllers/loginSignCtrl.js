@@ -1,15 +1,13 @@
 import bcrypt from 'bcrypt';
-import { clientPg } from "../db/postgres.js";
+import { loginSignRP } from '../repositories/loginSignRP.js';
 import { createToken } from '../services/jwt.js';
 
+
 export async function signUpController(req, res) {
-    const userToRegister = req.body;
+    const {name, email, password} = req.body;
     try {
-        const passwordCrypted = bcrypt.hashSync(userToRegister.password, 10);
-        await clientPg.query(`
-            INSERT INTO users (name, email, password)
-            VALUES ($1, $2, $3)
-        `, [userToRegister.name, userToRegister.email.toLowerCase(), passwordCrypted]);
+        const passwordCrypted = bcrypt.hashSync(password, 10);
+        await loginSignRP.signUpController(name, email,passwordCrypted);
         res.sendStatus(201);
     } catch (error) {
         console.log(error);

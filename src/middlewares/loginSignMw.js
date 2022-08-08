@@ -1,16 +1,16 @@
-import { clientPg } from "../db/postgres.js";
 import { registerSchema, loginSchema } from "../schemas/loginSignSchemas.js";
 import bcrypt from 'bcrypt';
+import { middlewareRP } from "../repositories/middlewareRP.js";
 
-export async function signUpMiddle(req, res, next) {
+export async function signUpMW(req, res, next) {
     const userToRegister = req.body;
     const { error } = registerSchema.validate(userToRegister);
     if (error) {
         return res.status(422).send(error.details[0].message);
     }
     try {
-        const { rows: verifyEmail } = await clientPg.query(`
-        SELECT * FROM users WHERE email = $1`, [userToRegister.email.toLowerCase()]);
+        const emailSignUp = userToRegister.email;
+        const { rows: verifyEmail } = await middlewareRP.signUpMiddle(emailSignUp);
         if (verifyEmail.length > 0) {
             return res.status(409).send('Email já existe!');
         }
@@ -21,15 +21,15 @@ export async function signUpMiddle(req, res, next) {
     }
 }
 
-export async function signInMiddle(req, res, next) {
+export async function signInMW(req, res, next) {
     const signInData = req.body;
     const { error } = loginSchema.validate(signInData);
     if (error) {
         return res.status(422).send(error.details[0].message);
     }
     try {
-        const { rows: verifyEmail } = await clientPg.query(`
-        SELECT * FROM users WHERE email = $1`, [signInData.email.toLowerCase()]);
+        const emailSignIn = signInData.email
+        const { rows: verifyEmail } = await middlewareRP.signInMiddle(emailSignIn)
         if (verifyEmail.length < 1) {
             return res.sendStatus(401);
         }
